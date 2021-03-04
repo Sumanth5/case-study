@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sba-app-deployment
+  name: app-deployment
   labels:
-    app: sbaflask
+    app: flask
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app:  sbaflask
+      app:  flask
   template:
     metadata:
       labels:
-        app: sbaflask
+        app: flask
     spec:
       containers:
-      - name: sbaflask
+      - name: flask
         image: sumanth55/kubes
         ports:
         - containerPort: 80 
@@ -25,10 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sba-app-service
+  name: app-service
 spec:
   selector:
-    app: sbaflask
+    app: flask
   ports:
     - protocol: TCP
         port: 80
