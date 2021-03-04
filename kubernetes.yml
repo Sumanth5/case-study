@@ -1,0 +1,37 @@
+#Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sba-app-deployment
+  labels:
+    app: sbaflask
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app:  sbaflask
+  template:
+    metadata:
+      labels:
+        app: sbaflask
+    spec:
+      containers:
+      - name: sbaflask
+        image: sumanth55/kubes
+        ports:
+        - containerPort: 80 
+---
+#Service
+apiVersion: v1
+kind: Service
+metadata:
+  name: sba-app-service
+spec:
+  selector:
+    app: sbaflask
+  ports:
+    - protocol: TCP
+        port: 80
+        targetPort: 8080
+        nodePort: 31000
+  type: NodePort          
